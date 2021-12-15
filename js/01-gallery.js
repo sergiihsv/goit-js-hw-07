@@ -5,17 +5,34 @@ console.log(galleryItems);
 
 const galleryContainer = document.querySelector(".gallery");
 
-const createImageMarkup = galleryItems.map((item) => {
-  return;
-
-  <div class="gallery__item">
-    <a class="gallery__link" href="large-image.jpg">
+const createImageMarkup = galleryItems
+  .map(({ preview, original, description }) => {
+    return `
+   <div class="gallery__item">
+    <a class="gallery__link" href="${original}">
       <img
         class="gallery__image"
-        src="small-image.jpg"
-        data-source="large-image.jpg"
-        alt="Image description"
+        src="${preview}"
+        data-source="${original}"
+        alt="${description}"
       />
     </a>
-  </div>;
-});
+  </div>`;
+  })
+  .join("");
+
+galleryContainer.insertAdjacentHTML("beforeend", createImageMarkup);
+/* 
+galleryContainer.addEventListener("click", selectedImage); */
+
+function createModal(evt) {
+  evt.preventDefault();
+
+  const selectedImage = evt.target.dataset.source;
+
+  const modal = basicLightbox.create(`
+    <img src="${selectedImage}" width="800" height="600">
+`);
+
+  instance.show();
+}
