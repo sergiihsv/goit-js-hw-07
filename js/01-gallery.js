@@ -22,17 +22,17 @@ const createImageMarkup = galleryItems
   .join("");
 
 galleryContainer.insertAdjacentHTML("beforeend", createImageMarkup);
-/* 
-galleryContainer.addEventListener("click", selectedImage); */
 
 function createModal(evt) {
   evt.preventDefault();
 
   const selectedImage = evt.target.dataset.source;
-
-  const modal = basicLightbox.create(`
+  const modalImage = basicLightbox.create(`
     <img src="${selectedImage}" width="800" height="600">
 `);
 
-  instance.show();
+  modalImage.show();
+  modalImage.show(() => console.log("lightbox now visible"));
 }
+
+createModal();
