@@ -3,7 +3,7 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 
-/* const galleryContainer = document.querySelector(".gallery");
+const galleryContainer = document.querySelector(".gallery");
 
 const createImageMarkup = galleryItems
   .map(({ preview, original, description }) => {
@@ -21,42 +21,7 @@ const createImageMarkup = galleryItems
   })
   .join("");
 
-galleryContainer.insertAdjacentHTML("beforeend", createImageMarkup); */
-
-/* function openModal(evt) {
-  evt.preventDefault();
-
-  const selectedImage = evt.target.dataset.source;
-
-  const modalImage = basicLightbox.create(`
-    <img src="${selectedImage}" width="800" height="600">
-`);
-  modalImage.show();
-} */
-
-/* if (!evt.target.classList.contains(".gallery_item")) {
-  return;
-} */
-
-const galleryContainer = document.querySelector(".gallery");
-
-const galleryCardMarkup = galleryItems
-  .map(
-    (item) =>
-      `<div class="gallery__item">
-  <a class="gallery__link" href="${item.original}">
-    <img
-      class="gallery__image"
-      src='${item.preview}'
-      data-source='${item.original}'
-      alt='${item.description}'
-    />
-  </a>
-</div>`
-  )
-  .join("");
-
-galleryContainer.insertAdjacentHTML("beforeend", galleryCardMarkup);
+galleryContainer.insertAdjacentHTML("beforeend", createImageMarkup);
 
 let image = "";
 
@@ -69,14 +34,3 @@ function createImgInModal(event) {
 }
 
 galleryContainer.addEventListener("click", createImgInModal);
-
-function onEscKeyPress(event) {
-  const ESC_KEY_CODE = "Escape";
-  const isEscKey = event.code === ESC_KEY_CODE;
-
-  if (isEscKey) {
-    image.close();
-  }
-}
-
-galleryContainer.addEventListener("keydown", onEscKeyPress);
