@@ -30,7 +30,36 @@ function createImgInModal(event) {
   image = basicLightbox.create(
     `<div class="modal"><img src="${event.target.dataset.source}"></div>`
   );
-  image.show();
 }
 
 galleryContainer.addEventListener("click", createImgInModal);
+
+document.addEventListener("click", onOpenModal);
+/* document.addEventListener("click", onCloseModal); */
+/* document.addEventListener("kewdown", onEscapePress); */
+
+function onOpenModal(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
+  /* image.src = event.target.dataset.source; */
+  image.show();
+}
+
+/* function onCloseModal(event) {
+   
+  if () {
+    image.close();
+  }
+  image.close();
+} 
+ */
+
+/* function onEscapePress(event) {
+  if (event.code === "Escape") {
+    onCloseModal();
+  }
+} */
