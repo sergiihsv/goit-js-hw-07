@@ -22,44 +22,31 @@ const createImageMarkup = galleryItems
   .join("");
 
 galleryContainer.insertAdjacentHTML("beforeend", createImageMarkup);
-
-let image = "";
+galleryContainer.addEventListener("click", createImgInModal);
 
 function createImgInModal(event) {
   event.preventDefault();
-  image = basicLightbox.create(
-    `<div class="modal"><img src="${event.target.dataset.source}"></div>`
-  );
-}
-
-galleryContainer.addEventListener("click", createImgInModal);
-
-document.addEventListener("click", onOpenModal);
-/* document.addEventListener("click", onCloseModal); */
-/* document.addEventListener("kewdown", onEscapePress); */
-
-function onOpenModal(event) {
-  event.preventDefault();
-
-  if (event.target.nodeName !== "IMG") {
+  const modalImage = event.target.classList.contains("gallery__image");
+  if (!modalImage) {
     return;
   }
 
-  /* image.src = event.target.dataset.source; */
-  image.show();
+  const modal = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" >`,
+    {
+      onShow: (modal) => {
+        window.addEventListener("keydown", onKeyboardClick);
+      },
+      onClose: (modal) => {
+        window.removeEventListener("keydown", onKeyboardClick);
+      },
+    }
+  );
+  modal.show();
+
+  function onKeyboardClick(event) {
+    if (event.code === "Escape") {
+      modal.close();
+    }
+  }
 }
-
-/* function onCloseModal(event) {
-   
-  if () {
-    image.close();
-  }
-  image.close();
-} 
- */
-
-/* function onEscapePress(event) {
-  if (event.code === "Escape") {
-    onCloseModal();
-  }
-} */
